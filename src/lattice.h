@@ -7,19 +7,42 @@ using namespace std;
 
 class Lattice{
     private:
-        // n*n size of matrix
+        // n*n gridsize
         int n;
 
+        // 2d matrix holding spins
+        vector<vector<int>> grid;
+
+        // probability distributions
+        bernoulli_distribution bool_distr{0.5};
+        uniform_int_distribution<int> int_distr{0, n-1};
+
+    public:
         // mersenne twister random number generator
         mt19937 generator;
 
-    public:
+        // probability distribution used by ising class
+        uniform_real_distribution<double> double_distr{0.0, 1.0};
+
         // constructor 
         Lattice(int n);
 
-        // 2d matrix holding spins
-        vector<vector<bool>> lattice;
+        // constructor for testing
+        Lattice();
 
-        // overloading operator
+        // get methods
+        int get_spin(int row, int col);
+        int get_spin(tuple<int, int> row_col);
+
+        // calculate energy change
+        double calculate_energy(tuple<int, int> row_col);
+
+        // returns random spin pos (row, col) 
+        tuple<int, int> choose_random_spin();
+
+        // flip spin at site (row, col)
+        void flip_spin(tuple<int, int> row_col);
+
+        // overloading << operator for printing grid
         friend ostream& operator<<(ostream& out, Lattice& l);
 };
