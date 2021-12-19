@@ -1,9 +1,10 @@
-#include "lattice.h"
-#include <random>
-
-using namespace std;
+#include "ising.h"
 
 int main() {
-    Lattice l(10);
-    cout << l;
+    Ising model{100, 1000.0, 10000.0};
+
+    for (int i = 0; i < 1000; i++) {
+        model.write_lattice_to_file();
+        model.metropolis(10000);
+    }
 }
