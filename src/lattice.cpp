@@ -23,6 +23,7 @@ int Lattice::get_spin(tuple<int, int> row_col) {
 }
 
 void Lattice::flip_spin(tuple<int, int> row_col) {
+    // -1 -> 1 and 1 -> -1
     grid[get<0>(row_col)][get<1>(row_col)] = (get_spin(row_col) == 1) ? -1 : 1; 
 }
 
@@ -34,17 +35,19 @@ double Lattice::calculate_energy(tuple<int, int> row_col) {
     int row = get<0>(row_col);
     int col = get<1>(row_col);
 
+    /* adding neighbours spin together in i,
+       wrapping for periodic boundary conditions,
+       multiplying answer with -1 depending on state of center spin */
+
     double i = 0.0;
-    // periodic boundary conditions
     i += (get_spin((row + 1) % n, col) == 1) ? 1.0 : -1.0;
     i += (get_spin((n + ((row - 1) % n)) % n, col) == 1) ? 1.0 : -1.0;
     i += (get_spin(row, (col + 1) % n) == 1) ? 1.0 : -1.0;
     i += (get_spin(row, (n + ((col - 1) % n)) % n) == 1) ? 1.0 : -1.0;
-
-    // if center spin is down multiply with -1
     if (get_spin(row_col) == -1) {
         i *= -1.0;
     }
+
     return i;
 }
 

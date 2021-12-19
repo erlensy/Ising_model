@@ -1,5 +1,7 @@
 #pragma once
+#include "math.h"
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <random>
 
@@ -27,21 +29,18 @@ class Lattice{
         // constructor 
         Lattice(int n);
 
-        // constructor for testing
-        Lattice();
+        // calculate energy with row_col as center spin
+        double calculate_energy(tuple<int, int> row_col);
 
-        // get methods
+        // get spin methods
         int get_spin(int row, int col);
         int get_spin(tuple<int, int> row_col);
 
-        // calculate energy change
-        double calculate_energy(tuple<int, int> row_col);
+        // flip spin at site (row, col)
+        void flip_spin(tuple<int, int> row_col);
 
         // returns random spin pos (row, col) 
         tuple<int, int> choose_random_spin();
-
-        // flip spin at site (row, col)
-        void flip_spin(tuple<int, int> row_col);
 
         // overloading << operator for printing grid
         friend ostream& operator<<(ostream& out, Lattice& l);

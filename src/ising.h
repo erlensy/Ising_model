@@ -1,7 +1,4 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include "math.h"
 #include "lattice.h"
 
 class Ising {
@@ -17,11 +14,15 @@ class Ising {
         Lattice lattice;
 
     public:
+        // constructor
         Ising(int n, double J, double B);
 
-        Lattice* get_lattice();
-
+        // metropolis algorithm
         void metropolis(int iterations);
 
+        // function that writes current state to ../data/lattice.txt
         void write_lattice_to_file();
+
+        // get current lattice state
+        Lattice* get_lattice();
 };
