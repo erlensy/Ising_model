@@ -83,6 +83,7 @@ class Visualizer:
         nFrames = len(self.lattices)
         fig = plt.figure()
         im = plt.imshow(self.lattices[0], cmap = "Greys")
+        plt.axis('off')
 
         # animate self.lattices
         anim = FuncAnimation(fig, animate, frames = nFrames, interval = 25, blit = True)
@@ -99,4 +100,3 @@ class Visualizer:
 if __name__ == '__main__':
     visualizer = Visualizer()
     visualizer.animate_lattices(save = True)
-    visualizer.plot_lattices(save = True)
