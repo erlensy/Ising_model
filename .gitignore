@@ -1,4 +1,5 @@
 /src/Makefile
 src/a.out
+data/*
 *.swp
 .DS_Store
