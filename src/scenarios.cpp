@@ -1,46 +1,32 @@
 #include "scenarios.h"
 
-void no_interaction() {
-    Ising model{100, 0.0, 1.0}; 
+void two_states(int n, double J, double B, int iters) {
+    Ising model{n, J, B}; 
     model.write_lattice_to_file();
-    model.metropolis(1000000);
-    model.write_lattice_to_file();
-}
-
-void infinite_temperature() {
-    Ising model{100, 1.0, 0.0};
-    model.write_lattice_to_file();
-    model.metropolis(1000000);
+    model.metropolis(iters);
     model.write_lattice_to_file();
 }
 
-void ferromagnetic_phase_transition_small_lattice() {
-    Ising model{100, 1.0, 1.0/0.4};
-    for (int i = 0; i < 100000; i++) {
+void many_states(int n, double J, double B, int iters, int states) {
+    Ising model{n, J, B};
+    for (int i = 0; i < states; i++) {
         model.write_lattice_to_file();
-        model.metropolis(10000);
+        model.metropolis(iters);
     }
 }
 
-void antiferromagnetic_phase_transition_small_lattice() {
-    Ising model{100, -1.0, 1.0/0.4};
-    for (int i = 0; i < 10000; i++) {
-        model.write_lattice_to_file();
-        model.metropolis(10000);
-    }
-}
-void ferromagnetic_phase_transition_large_lattice() {
-    Ising model{500, 1.0, 1.0/0.4};
-    for (int i = 0; i < 10000; i++) {
-        model.write_lattice_to_file();
-        model.metropolis(10000);
-    }
-}
+void magnetization(int n, double J, double B_min, double B_max, int B_n,
+                   int iters_equilibrium, int iters_avg,
+                   int iters_new_state) {
 
-void antiferromagnetic_phase_transition_large_lattice() {
-    Ising model{500, -1.0, 1.0/0.4};
-    for (int i = 0; i < 10000; i++) {
-        model.write_lattice_to_file();
-        model.metropolis(10000);
+    for (int i = 0; i <= B_n; i++) {
+        Ising model{n, J, B_min + i * (B_max - B_min) / (B_n + 1)};
+        model.metropolis(iters_equilibrium);
+        double avg_magnetization = 0;
+        for (int j = 0; j < iters_avg; j++) {
+            avg_magnetization += model.get_magnetization();
+            model.metropolis(iters_new_state);
+        }
+        model.write_magnetization_to_file(avg_magnetization / iters_avg);
     }
 }

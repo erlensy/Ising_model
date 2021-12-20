@@ -1,20 +1,33 @@
 #pragma once
 #include "ising.h"
 
-// n = 100, J = 0, Beta = 1, two states, 1 million iterations 
-void no_interaction();
 
-// n = 100, J = 1, Beta = 0, two states, 1 million iterations
-void infinite_temperature();
+// writes initial lattice and a second lattice to lattice.txt
+void two_states(int n, double J, double B, int iters);
+/*
+n = (n*n) size of lattice, 
+J = interaction strength,
+B = beta,
+iters = iterations between initial state and second state */
 
-// n = 100, j = 1, Beta = 1/0.4, 10 thousand states, 10 thousand iterations
-void ferromagnetic_phase_transition_small_lattice();
+// writes many lattices to lattice.txt
+void many_states(int n, double J, double B, int iters, int states);
+/*
+n = (n*n) size of lattice, 
+J = interaction strength,
+B = beta,
+states = total number of lattices
+iters = iterations between states */
 
-// n = 100, j = -1, Beta = 1/0.4, 10 thousand states, 10 thousand iterations
-void antiferromagnetic_phase_transition_small_lattice();
-
-// n = 500, j = 1, Beta = 1/0.4, 10 thousand states, 10 thousand iterations
-void ferromagnetic_phase_transition_large_lattice();
-
-// n = 500, j = -1, Beta = 1/0.4, 10 thousand states, 10 thousand iterations
-void antiferromagnetic_phase_transition_large_lattice();
+// writes average magnetization for many betas to magnetization.txt
+void magnetization(int n, double J, double B_min, double B_max, int B_n,
+                   int iters_equilibrium, int iters_avg,
+                   int iters_new_state);
+/*
+n = (n*n) size of lattice, 
+J = interaction strength,
+B_min, B_max = beta range (includes B_min and B_max),
+B_n = number of beta values in beta range,
+iters_equilibrium = iterations from initial state to first state,
+iters_avg = number of states to average over for one beta value,
+iters_new_state = iterations between states */
