@@ -1,17 +1,9 @@
 #pragma once
 #include "ising.h"
 
-
-// writes initial lattice and a second lattice to lattice.txt
-void two_states(int n, double J, double B, int iters);
-/*
-n = (n*n) size of lattice, 
-J = interaction strength,
-B = beta,
-iters = iterations between initial state and second state */
-
 // writes many lattices to lattice.txt
-void many_states(int n, double J, double B, int iters, int states);
+void many_states(int n, double J, double B, int iters, 
+                 int states);
 /*
 n = (n*n) size of lattice, 
 J = interaction strength,

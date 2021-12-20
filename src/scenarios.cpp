@@ -1,12 +1,5 @@
 #include "scenarios.h"
 
-void two_states(int n, double J, double B, int iters) {
-    Ising model{n, J, B}; 
-    model.write_lattice_to_file();
-    model.metropolis(iters);
-    model.write_lattice_to_file();
-}
-
 void many_states(int n, double J, double B, int iters, int states) {
     Ising model{n, J, B};
     for (int i = 0; i < states; i++) {

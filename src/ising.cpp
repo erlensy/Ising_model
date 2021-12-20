@@ -34,7 +34,7 @@ void Ising::write_magnetization_to_file(double magnetization) {
 
 void Ising::write_lattice_to_file() {
     ofstream lattice_file;
-    lattice_file.open("../data/raw/lattices.txt", std::ios_base::app);
+    lattice_file.open("../data/raw/lattice.txt", std::ios_base::app);
     lattice_file << *get_lattice();
     // print ,\n to seperate different states 
     lattice_file << ",\n";
