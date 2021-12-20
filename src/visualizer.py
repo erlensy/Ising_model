@@ -1,6 +1,5 @@
 from matplotlib import pyplot as plt
 import multiprocessing
-import numpy as np
 from matplotlib.animation import FuncAnimation
 from matplotlib import animation
 
@@ -10,13 +9,24 @@ class Visualizer:
     def __init__(self):
         """ 
         constructor for visualizer class,
-        reads ../data/raw/lattices.txt and puts every lattice
-        into self.lattices
         """
-
-        # self.lattices is 3-dimensional and holds all states
         self.lattices = []
+        self.magnetization = [[], []]
 
+    def read_magnetization(self):
+        with open("../data/raw/magnetization.txt") as file:
+            for row in file:
+                curr_row = (list(map(float, row.rstrip().split(","))))
+                self.magnetization[0].append(curr_row[0])
+                self.magnetization[1].append(abs(curr_row[1]))
+
+
+    def plot_magnetization(self):
+        plt.scatter(self.magnetization[0], self.magnetization[1])
+        plt.grid()
+        plt.show()
+
+    def read_lattices(self):
         # create empty 2d array
         lattice = []
 
@@ -99,4 +109,5 @@ class Visualizer:
 
 if __name__ == '__main__':
     visualizer = Visualizer()
-    visualizer.animate_lattices(save = True)
+    visualizer.read_magnetization()
+    visualizer.plot_magnetization()
