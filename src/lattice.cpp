@@ -14,21 +14,14 @@ Lattice::Lattice(int n) : n{n} {
     }
 }
 
-int Lattice::get_spin(int row, int col) {
-    return grid[row][col];
-}
-
-int Lattice::get_spin(tuple<int, int> row_col) {
-    return grid[get<0>(row_col)][get<1>(row_col)];
-}
-
-void Lattice::flip_spin(tuple<int, int> row_col) {
-    // -1 -> 1 and 1 -> -1
-    grid[get<0>(row_col)][get<1>(row_col)] = (get_spin(row_col) == 1) ? -1 : 1; 
-}
-
-tuple<int, int> Lattice::choose_random_spin() {
-    return make_tuple(int_distr(generator), int_distr(generator));
+double Lattice::total_magnetization() {
+    double spin = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            spin += (get_spin(i, j) == 1) ? 1.0 : -1.0;
+        }
+    }
+    return spin / (n * n);
 }
 
 double Lattice::calculate_energy(tuple<int, int> row_col) {
@@ -49,6 +42,23 @@ double Lattice::calculate_energy(tuple<int, int> row_col) {
     }
 
     return i;
+}
+
+int Lattice::get_spin(int row, int col) {
+    return grid[row][col];
+}
+
+int Lattice::get_spin(tuple<int, int> row_col) {
+    return grid[get<0>(row_col)][get<1>(row_col)];
+}
+
+void Lattice::flip_spin(tuple<int, int> row_col) {
+    // -1 -> 1 and 1 -> -1
+    grid[get<0>(row_col)][get<1>(row_col)] = (get_spin(row_col) == 1) ? -1 : 1; 
+}
+
+tuple<int, int> Lattice::choose_random_spin() {
+    return make_tuple(int_distr(generator), int_distr(generator));
 }
 
 ostream& operator<<(ostream& out, Lattice& l) {

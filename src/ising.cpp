@@ -24,12 +24,17 @@ void Ising::metropolis(int iterations) {
     }
 }
 
+void Ising::write_magnetization_to_file(double magnetization) {
+    ofstream magnetization_file;
+    magnetization_file.open("../data/raw/magnetization.txt", std::ios_base::app);
+    magnetization_file << B << "," << magnetization << "\n";
+    magnetization_file.close();
+}
+
+
 void Ising::write_lattice_to_file() {
-    // create output stream
     ofstream lattice_file;
-    // open file with "append" mode
     lattice_file.open("../data/raw/lattices.txt", std::ios_base::app);
-    // use overloaded operator << to print state to file
     lattice_file << *get_lattice();
     // print ,\n to seperate different states 
     lattice_file << ",\n";
@@ -38,4 +43,8 @@ void Ising::write_lattice_to_file() {
 
 Lattice* Ising::get_lattice() {
     return &lattice;
+}
+
+double Ising::get_magnetization() {
+    return lattice.total_magnetization();
 }

@@ -29,6 +29,9 @@ class Lattice{
         // constructor 
         Lattice(int n);
 
+        // returns sum of all spins in current state
+        double total_magnetization();
+
         // calculate energy with row_col as center spin
         double calculate_energy(tuple<int, int> row_col);
 

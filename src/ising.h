@@ -20,9 +20,15 @@ class Ising {
         // metropolis algorithm
         void metropolis(int iterations);
 
+        // function that writes magnetization and temperature to file
+        void write_magnetization_to_file(double magnetization); 
+
         // function that writes current state to ../data/lattice.txt
         void write_lattice_to_file();
 
         // get current lattice state
         Lattice* get_lattice();
+
+        // get current magnetizaion
+        double get_magnetization();
 };
