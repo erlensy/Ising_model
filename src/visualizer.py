@@ -21,17 +21,21 @@ class Visualizer:
                 self.magnetization[1].append(abs(curr_row[1]))
 
 
-    def plot_magnetization(self):
+    def plot_magnetization(self, save = False):
+        fig = plt.figure()
         plt.scatter(self.magnetization[0], self.magnetization[1])
         plt.grid()
-        plt.show()
+        if save:
+            plt.savefig("../data/processed/magnetization.pdf", dpi = 600)
+        else:
+            plt.show()
 
     def read_lattices(self):
         # create empty 2d array
         lattice = []
 
         # open raw data and read line for line
-        with open("../data/raw/lattices.txt") as file:
+        with open("../data/raw/lattice.txt") as file:
             for row in file:
 
                 # every lattice is seperated with one line containing ","
@@ -51,7 +55,7 @@ class Visualizer:
         """
         function used by plot_lattices
         """
-
+        fig = plt.figure()
         plt.imshow(lattice, cmap = "Greys")
         plt.show()
 
@@ -102,12 +106,19 @@ class Visualizer:
         if save:
             save_path = "../data/processed/lattice_animation.mp4"
             anim.save(save_path, writer=animation.FFMpegWriter(fps = 60))
-
-        # else show the animation without saving
         else:
             plt.show()
+        plt.close()
 
 if __name__ == '__main__':
     visualizer = Visualizer()
-    visualizer.read_magnetization()
-    visualizer.plot_magnetization()
+
+    # read data
+    visualizer.read_lattices();
+    visualizer.read_magnetization();
+
+    # make plots
+    visualizer.animate_lattices(save = True)
+    visualizer.plot_lattices(save = True)
+    visualizer.plot_magnetization(save = True)
+
