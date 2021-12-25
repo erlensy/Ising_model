@@ -1,7 +1,7 @@
 #include "ising.h"
 
 // constructor initializing lattice, J and B
-Ising::Ising(int n, double J, double B) : J{J}, B{B}, lattice{Lattice(n)} {} 
+Ising::Ising(int n, double J, double B) : J{J}, B{B}, lattice{n} {} 
 
 // algorithm to resemble the canonical ensemble
 void Ising::metropolis(int iterations) {
@@ -11,6 +11,7 @@ void Ising::metropolis(int iterations) {
 
         // calculate change in energy if random_spin is flipped
         double delta_energy = 2.0 * J * lattice.calculate_energy(random_spin);
+
         // flip chosen spin
         lattice.flip_spin(random_spin);
 

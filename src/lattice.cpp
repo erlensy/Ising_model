@@ -7,7 +7,7 @@ Lattice::Lattice(int n) : n{n} {
 
     // iterate through lattice and set random spin
     for (int i = 0; i < n; i++) {
-        grid.push_back(vector<int>(n));
+        grid.push_back(vector<short>(n));
         for (int j = 0; j < n; j++) {
             grid[i][j] = (bool_distr(generator)) ? 1 : -1;
         }
@@ -32,13 +32,13 @@ double Lattice::calculate_energy(tuple<int, int> row_col) {
        wrapping for periodic boundary conditions,
        multiplying answer with -1 depending on state of center spin */
 
-    double i = 0.0;
-    i += (get_spin((row + 1) % n, col) == 1) ? 1.0 : -1.0;
-    i += (get_spin((n + ((row - 1) % n)) % n, col) == 1) ? 1.0 : -1.0;
-    i += (get_spin(row, (col + 1) % n) == 1) ? 1.0 : -1.0;
-    i += (get_spin(row, (n + ((col - 1) % n)) % n) == 1) ? 1.0 : -1.0;
+    int i = 0;
+    i += get_spin((row + 1) % n, col);
+    i += get_spin((n + ((row - 1) % n)) % n, col); 
+    i += get_spin(row, (col + 1) % n); 
+    i += get_spin(row, (n + ((col - 1) % n)) % n); 
     if (get_spin(row_col) == -1) {
-        i *= -1.0;
+        i *= -1;
     }
 
     return i;

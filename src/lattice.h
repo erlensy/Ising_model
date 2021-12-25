@@ -13,7 +13,7 @@ class Lattice{
         int n;
 
         // 2d matrix holding spins
-        vector<vector<int>> grid;
+        vector<vector<short>> grid;
 
         // probability distributions
         bernoulli_distribution bool_distr{0.5};
