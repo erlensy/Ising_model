@@ -2,5 +2,4 @@
 
 **Examples:**
 
-![](https://github.com/erlensy/ising_model/tree/master/data/finished/ferromagnetic.gif)
-
+![test](data/finished/anti_ferromagnetic.gif)
