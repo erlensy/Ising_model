@@ -1,3 +1,4 @@
+import numpy as np
 from matplotlib import pyplot as plt
 import multiprocessing
 from matplotlib.animation import FuncAnimation
@@ -20,11 +21,14 @@ class Visualizer:
                 self.magnetization[0].append(curr_row[0])
                 self.magnetization[1].append(abs(curr_row[1]))
 
-
     def plot_magnetization(self, save = False):
         fig = plt.figure()
-        plt.scatter(self.magnetization[0], self.magnetization[1])
+        x = 1.0 / np.array(self.magnetization[0])
+        y = np.array(self.magnetization[1])
+        plt.scatter(x, y, color = "black")
         plt.grid()
+        plt.xlabel(r"k$_B$T")
+        plt.ylabel("M")
         if save:
             plt.savefig("../data/processed/magnetization.pdf", dpi = 600)
         else:
@@ -114,11 +118,11 @@ if __name__ == '__main__':
     visualizer = Visualizer()
 
     # read data
-    visualizer.read_lattices();
+    #visualizer.read_lattices();
     visualizer.read_magnetization();
 
     # make plots
-    visualizer.animate_lattices(save = True)
-    visualizer.plot_lattices(save = True)
+    #visualizer.animate_lattices(save = True)
+    #visualizer.plot_lattices(save = True)
     visualizer.plot_magnetization(save = True)
 
