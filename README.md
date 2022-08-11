@@ -1,5 +1,11 @@
 # 2D Ising model
 
-**Examples:**
+### Examples
+## Ferromagnetic
+![](data/finished/ferromagnetic.gif)
 
-![test](data/finished/anti_ferromagnetic.gif)
+## Antiferromagnetic
+![](data/finished/anti_ferromagnetic.gif)
+
+## Magnetizatoin
+![](data/finished/magnetization.pdf)
